@@ -1,30 +1,7 @@
-import Forgot from "../../components/Forgot/Forgot";
-import Register from "../../components/Register/Register";
-import Login from "../../components/Login/Login";
+import Login from "../../components/Login/Login"
 import "./authlayout.css";
-import { useState } from "react";
 
 const AuthLayout = () => {
-  const [login, setLogin] = useState(true);
-  const [register, setRegister] = useState(false);
-  const [forgot, setForgot] = useState(true);
-
-  const handleLogin = () => {
-    setLogin(true)
-    setRegister(false)
-    setForgot(false)
-  }
-  const handleRegister = () => {
-    setLogin(false)
-    setRegister(true)
-    setForgot(false)
-  }
-  const handleForgot = () => {
-    setLogin(false)
-    setRegister(false)
-    setForgot(true)
-  }
-
   return (
     <div className="authlayout">
       {/* logo */}
@@ -32,17 +9,11 @@ const AuthLayout = () => {
         <img src="./assets/img/shuttle.svg" alt="logo" />
       </div>
       {/* form */}
-      {login && <Login />}
-      {register && <Register />}
-      {forgot && <Forgot />}
+      <Login />
       {/* actions */}
       <div className="authlayout_actions">
-        <p className="authlayout_actions-l"
-        onClick={login ? handleRegister : handleLogin}
-        >{login ? "Register ?" : "Login ?"}</p>
-        <p className="authlayout_actions-r" 
-        onClick={handleForgot}
-        >forgot ?</p>
+        <p className="authlayout_actions-l">register?</p>
+        <p className="authlayout_actions-r">login ?</p>
       </div>
     </div>
   );
