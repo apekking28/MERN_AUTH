@@ -1,18 +1,17 @@
 import Input from "../input/Input";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
-import { useState } from "react";
+import {useState} from "react"
 
-const Register = () => {
+const Reset = () => {
   const [visible, setVisible] = useState(false);
 
   const handleClick = () => {
     setVisible(!visible);
   };
+
   return (
     <form>
-      <Input type="text" text="Name" />
-      <Input type="text" text="Email" />
       <Input
         type={visible ? "text" : "password"}
         icon={visible ? <MdVisibility /> : <MdVisibilityOff />}
@@ -26,10 +25,10 @@ const Register = () => {
         handleClick={handleClick}
       />
       <div className="login_btn">
-        <button>register</button>
+        <button>reset</button>
       </div>
     </form>
   );
 };
 
-export default Register;
+export default Reset;
