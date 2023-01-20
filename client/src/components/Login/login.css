@@ -1,0 +1,37 @@
+.login_btn {
+  display: flex;
+  flex-direction: column;
+}
+.login_btn button {
+  margin: 1em 0;
+  padding: 1.2em;
+  border-radius: 5px;
+  border: none;
+  width: 370px;
+  text-transform: uppercase;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(to right, #fbc02d, #f96a8b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login_btn button svg {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+.login_btn button:hover {
+  transition: all 0.3s ease;
+  box-shadow: none;
+  background: linear-gradient(to left, #fbc02d, #f96a8b);
+}
+.login_btn .btn-alt {
+  background: linear-gradient(to left, #fbc02d, #f96a8b);
+}
+.login_btn .btn-alt:hover {
+  transition: all 0.3s ease;
+  box-shadow: none;
+  background: linear-gradient(to right, #fbc02d, #f96a8b);
+}/*# sourceMappingURL=Login.css.map */
