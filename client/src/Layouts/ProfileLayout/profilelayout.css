@@ -33,6 +33,11 @@ body {
   width: 100%;
 }
 
+.profilelayout_content-profile {
+  width: 100%;
+  order: 2;
+}
+
 @media (min-width: 1200px) {
   .profilelayout_sidebar {
     display: initial;
@@ -43,5 +48,10 @@ body {
   }
   .profilelayout_content-feed {
     width: 50%;
+    order: 1;
+  }
+  .profilelayout_content-profile {
+    width: 45%;
+    order: 2;
   }
 }/*# sourceMappingURL=profilelayout.css.map */
