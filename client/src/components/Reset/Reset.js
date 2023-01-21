@@ -1,7 +1,7 @@
-import Input from "../input/Input";
+import Input from "../Input/Input";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
-import {useState} from "react"
+import { useState } from "react";
 
 const Reset = () => {
   const [visible, setVisible] = useState(false);

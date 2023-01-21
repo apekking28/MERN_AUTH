@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
-import Input from "../input/Input";
+import Input from "../Input/Input";
 import "./login.css";
 
 const Login = () => {
