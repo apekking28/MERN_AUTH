@@ -20,7 +20,8 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: "",
+      default:
+        "https://res.cloudinary.com/apekking/image/upload/v1674359527/avatar/Blank-Avatar_zfo6gt.png",
     },
   },
   { timestamps: true }

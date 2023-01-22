@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const { activation } = require("../helpers/createToken");
+const { google } = require("googleapis");
+const { OAuth2 } = google.auth;
 
 const userController = {
   register: async (req, res) => {
@@ -43,7 +45,7 @@ const userController = {
       const newUser = { name, email, password: hashPassword };
       const activation_token = createToken.activation(newUser);
 
-      // send emailconst
+      // send email
       const url = `http://localhost:3000/api/auth/activate/${activation_token}`;
       sendMail.sendEmailRegister(email, url, "Verify your email");
 
@@ -66,8 +68,8 @@ const userController = {
       const check = await User.findOne({ email });
       if (check)
         return res
-          .status(500)
-          .json({ msg: "This email is already registered" });
+          .status(400)
+          .json({ msg: "This email is already registered." });
 
       // add user
       const newUser = new User({
@@ -179,6 +181,100 @@ const userController = {
 
       // reset success
       res.status(200).json({ msg: "Password was updated successfully." });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  info: async (req, res) => {
+    try {
+      // get info -password
+      const user = await User.findById(req.user.id).select("-password");
+      // return user
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  update: async (req, res) => {
+    try {
+      // get info
+      const { name, avatar } = req.body;
+
+      // update
+      await User.findOneAndUpdate({ _id: req.user.id }, { name, avatar });
+
+      // succsess
+      res.status(200).json({ msg: "Updated success." });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  signout: async (req, res) => {
+    try {
+      // clear cookie
+      res.clearCookie("_apprftoken", { path: "/api/auth/access" });
+      // success
+      res.status(200).json({ msg: "Signout success." });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  google: async (req, res) => {
+    try {
+      // get Token Id
+      const { tokenId } = req.body;
+
+      // verify Token Id
+      const client = new OAuth2(process.env.G_CLIENT_ID);
+      const verify = await client.verifyIdToken({
+        idToken: tokenId,
+        audience: process.env.G_CLIENT_ID,
+      });
+
+      // get data
+      const { email_verify, email, name, picture } = verify.payload;
+
+      // failed verification
+      if (!email_verify)
+        return res.status(400).json({ msg: "Email verification failed." });
+
+      // passed verification
+      const user = await User.findOne({ email });
+      // 1. If user exist / sign in
+      if (user) {
+        // refresh token
+        const rf_token = createToken.refresh({ id: user._id });
+        // store cookie
+        res.cookie("_apprftoken", rf_token, {
+          httpOnly: true,
+          path: "/api/auth/access",
+          maxAage: 24 * 60 * 60 * 1000, // 24 hrs
+        });
+        res.status(200).json({ msg: "Signing with google succses." });
+      } else {
+        // new user / create user
+        const password = email + process.env.G_CLIENT_ID;
+        const salt = await bcrypt.genSalt();
+        const hashPassword = await bcrypt.hash(password, salt);
+        const newUser = new User({
+          name,
+          email,
+          password: hashPassword,
+          avatar: picture,
+        });
+        await newUser.save();
+        // sign in the user
+        // refresh token
+        const rf_token = createToken.refresh({ id: user._id });
+        // store cookie
+        res.cookie("_apprftoken", rf_token, {
+          httpOnly: true,
+          path: "/api/auth/access",
+          maxAage: 24 * 60 * 60 * 1000, // 24 hrs
+        });
+        // success
+        res.status(200).json({ msg: "Signing with google success." });
+      }
     } catch (err) {
       res.status(500).json({ msg: err.message });
     }
