@@ -11,6 +11,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const initialState = {
   name: "",
   password: "",
@@ -130,6 +131,13 @@ const Profile = () => {
     }
   };
 
+  const handleReset = () => {
+    Array.from(document.querySelectorAll("input")).forEach(
+      (input) => (input.value = "")
+    );
+    setData({ ...data, name: "", password: "", cf_password: "" });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name || avatar) {
@@ -137,6 +145,7 @@ const Profile = () => {
     }
     if (password) {
       updatePassword();
+      handleReset();
     }
   };
 

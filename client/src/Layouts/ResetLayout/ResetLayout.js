@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const ResetLayout = () => {
   const navigate = useNavigate();
-  const handleClick =  () => {
+  const handleClick = () => {
     navigate("/");
-  }
-  
+  };
+
   return (
     <div className="authlayout">
       {/* logo */}
