@@ -1,5 +1,5 @@
 import { isLength, isMatch } from "../helper/validate";
-import Input from "../Input/Input";
+import Input from "../input/Input";
 import Avatar from "../Avatar/Avatar";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
@@ -10,7 +10,6 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const initialState = {
   name: "",

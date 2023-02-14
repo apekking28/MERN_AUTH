@@ -1,4 +1,4 @@
-import Input from "../Input/Input";
+import Input from "../input/Input";
 import { isEmpty, isEmail } from "../helper/validate";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";

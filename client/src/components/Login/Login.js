@@ -6,7 +6,7 @@ import { isEmpty, isEmail } from "../helper/validate";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Input from "../Input/Input";
+import Input from "../input/Input";
 import "./login.css";
 import { AuthContext } from "../../context/AuthContext";
 import GoogleLogin from "react-google-login";
@@ -97,7 +97,7 @@ const Login = () => {
         />
         <div className="login_btn">
           <button type="submit">login</button>
-           <GoogleLogin
+          <GoogleLogin
             clientId={process.env.REACT_APP_G_CLIENT_ID}
             render={(renderProps) => (
               <button
@@ -112,7 +112,7 @@ const Login = () => {
             onSuccess={googleSuccess}
             onFailure={googleError}
           />
-        </div> 
+        </div>
       </form>
     </>
   );
